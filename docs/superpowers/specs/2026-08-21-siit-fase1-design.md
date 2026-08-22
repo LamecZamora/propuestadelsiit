@@ -37,13 +37,15 @@ Entregar un "avance" funcional y creíble como sistema propio (no generado por L
 
 ## Modelo de datos (Fase 1)
 
+Revisado contra la lógica real del prototipo (`src/lib/horario.functions.ts`, `calificaciones.functions.ts`, `kardex.functions.ts`): una sola tabla `calificaciones` cubre notas del periodo actual **y** historial (kardex), diferenciados por el campo `estado`. Esto elimina la necesidad de tablas separadas `inscripciones` y `kardex_registros` del diseño original.
+
 - **alumnos**: id, matrícula (único), nombre, correo, password_hash, carrera, semestre
-- **materias**: id, clave, nombre, créditos, semestre
-- **grupos**: id, materia_id (FK), docente_nombre, periodo
-- **horario_sesiones**: id, grupo_id (FK), dia_semana, hora_inicio, hora_fin, aula
-- **inscripciones**: alumno_id (FK), grupo_id (FK), periodo — determina qué materias/horario ve cada alumno
-- **calificaciones**: alumno_id (FK), materia_id (FK), periodo, parcial1, parcial2, parcial3, final
-- **kardex_registros**: alumno_id (FK), materia_id (FK), periodo, calificación_final, estatus (acreditada/no acreditada/en curso)
+- **materias**: id, clave (único), nombre, créditos
+- **grupos**: id, materia_id (FK), clave_grupo, docente_nombre, periodo
+- **horario_sesiones**: id, grupo_id (FK), dia_semana ("Lunes".."Viernes"), hora_inicio, hora_fin, aula
+- **calificaciones**: id, alumno_id (FK), materia_id (FK), grupo_id (FK, nullable — nulo en historial sin grupo activo), periodo, parcial1, parcial2, parcial3, final, estado ("cursando" / "acreditada" / "no_acreditada")
+
+Una fila de `calificaciones` con `estado="cursando"` en el periodo actual ES el registro de inscripción (no hace falta tabla aparte). El kardex es simplemente todas las filas de `calificaciones` del alumno agrupadas por periodo.
 
 ## Datos de prueba
 
