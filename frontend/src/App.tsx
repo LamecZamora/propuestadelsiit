@@ -7,12 +7,14 @@ import { RequireAuth } from "@/auth/RequireAuth";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { AppLayout } from "@/layouts/AppLayout";
 import AvancePage from "@/pages/AvancePage";
+import BecaPage from "@/pages/BecaPage";
 import CalificacionesPage from "@/pages/CalificacionesPage";
 import ComingSoonPage from "@/pages/ComingSoonPage";
 import DashboardPage from "@/pages/DashboardPage";
 import HorarioPage from "@/pages/HorarioPage";
 import KardexPage from "@/pages/KardexPage";
 import LoginPage from "@/pages/LoginPage";
+import ReinscripcionPage from "@/pages/ReinscripcionPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -24,8 +26,8 @@ const queryClient = new QueryClient({
 });
 
 const MODULOS_FUTUROS = [
-  "/datos", "/curp", "/examenes", "/tutorias",
-  "/inscripcion", "/grupos", "/evaluacion", "/auditoria", "/contrato", "/cuenta",
+  "/datos", "/examenes", "/tutorias",
+  "/grupos", "/evaluacion", "/auditoria", "/contrato", "/cuenta",
 ];
 
 export default function App() {
@@ -43,6 +45,8 @@ export default function App() {
                   <Route path="/calificaciones" element={<CalificacionesPage />} />
                   <Route path="/kardex" element={<KardexPage />} />
                   <Route path="/avance" element={<AvancePage />} />
+                  <Route path="/curp" element={<BecaPage />} />
+                  <Route path="/inscripcion" element={<ReinscripcionPage />} />
                   {MODULOS_FUTUROS.map((path) => (
                     <Route key={path} path={path} element={<ComingSoonPage />} />
                   ))}

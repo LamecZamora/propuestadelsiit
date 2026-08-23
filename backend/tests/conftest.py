@@ -54,6 +54,8 @@ def alumno_de_prueba(db_session):
         reticula=4,
         especialidad="Seguridad Informática 2025",
         promedio_certificado=87.93,
+        curp="ZATL031002HDGMRMA7",
+        beca_pronabes=True,
     )
     db_session.add(alumno)
     db_session.commit()

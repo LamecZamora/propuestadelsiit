@@ -10,6 +10,7 @@ from app.models.avance import AvanceMateria
 from app.models.calificacion import Calificacion
 from app.models.grupo import Grupo, HorarioSesion
 from app.models.materia import Materia
+from app.models.reinscripcion import EstatusReinscripcion
 
 DIAS = {"L": "Lunes", "M": "Martes", "X": "Miércoles", "J": "Jueves", "V": "Viernes", "S": "Sábado"}
 
@@ -205,6 +206,8 @@ def seed() -> None:
             reticula=4,
             especialidad="Seguridad Informática 2025",
             promedio_certificado=87.93,
+            curp="ZATL031002HDGMRMA7",
+            beca_pronabes=True,
         )
         db.add(alumno)
         db.flush()
@@ -252,6 +255,23 @@ def seed() -> None:
                     calificacion_display=calificacion_display,
                 )
             )
+
+        # Estatus de reinscripción real: autorizado, sin adeudos, sin hora
+        # asignada todavía ("--" tal como lo muestra la pantalla real).
+        db.add(
+            EstatusReinscripcion(
+                alumno_id=alumno.id,
+                periodo=settings.CURRENT_PERIODO,
+                fecha="--",
+                hora=None,
+                mensaje_adicional=None,
+                autorizado=True,
+                adeudo_biblioteca=False,
+                adeudo_escolares=False,
+                adeudo_financieros=False,
+                adeudo_encuesta=False,
+            )
+        )
 
         db.commit()
         print(

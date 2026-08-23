@@ -22,6 +22,8 @@ def test_create_tables_and_insert_alumno():
         reticula=4,
         especialidad="Seguridad Informática 2025",
         promedio_certificado=87.93,
+        curp="ZATL031002HDGMRMA7",
+        beca_pronabes=True,
     )
     session.add(alumno)
     session.commit()
@@ -39,6 +41,7 @@ def test_calificacion_referencia_alumno_materia_y_grupo_opcional():
     alumno = models.Alumno(
         matricula="1", nombre="X", correo="x@x.com", password_hash="h", carrera="ISC", semestre=1,
         plan_estudios="ISIC-2010-224", reticula=4, especialidad="Seguridad Informática 2025", promedio_certificado=0.0,
+        curp="XXXX000000HDGXXX00", beca_pronabes=False,
     )
     materia = models.Materia(clave="AAA0001", nombre="Materia X", creditos=5)
     session.add_all([alumno, materia])

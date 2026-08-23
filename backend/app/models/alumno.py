@@ -1,4 +1,4 @@
-from sqlalchemy import Float, Integer, String
+from sqlalchemy import Boolean, Float, Integer, String
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.database import Base
@@ -21,3 +21,5 @@ class Alumno(Base):
     # promedio aritmético simple que calcula el kardex a partir de las
     # calificaciones acreditadas.
     promedio_certificado: Mapped[float] = mapped_column(Float, nullable=False)
+    curp: Mapped[str] = mapped_column(String(20), nullable=False)
+    beca_pronabes: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
