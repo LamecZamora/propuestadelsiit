@@ -14,7 +14,14 @@ router = APIRouter(tags=["kardex"])
 
 @router.get("/kardex", response_model=KardexResponse)
 def obtener_kardex(alumno: Alumno = Depends(get_current_alumno), db: Session = Depends(get_db)) -> KardexResponse:
-    registros = db.query(Calificacion).filter(Calificacion.alumno_id == alumno.id).all()
+    # order_by explícito: el número de fila (contador) depende del orden en
+    # que se recorren los registros, y sin esto el orden no está garantizado.
+    registros = (
+        db.query(Calificacion)
+        .filter(Calificacion.alumno_id == alumno.id)
+        .order_by(Calificacion.periodo, Calificacion.id)
+        .all()
+    )
 
     por_periodo: dict[str, list[Calificacion]] = {}
     for registro in registros:
