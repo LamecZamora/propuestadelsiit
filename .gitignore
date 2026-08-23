@@ -6,6 +6,7 @@ backend/__pycache__/
 backend/**/__pycache__/
 *.pyc
 .pytest_cache/
+backend/*.db
 
 # Node
 frontend/node_modules/

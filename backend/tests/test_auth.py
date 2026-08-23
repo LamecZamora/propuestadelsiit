@@ -1,5 +1,5 @@
 def test_login_con_credenciales_correctas_devuelve_token(client, alumno_de_prueba):
-    response = client.post("/auth/login", json={"matricula": "22040251", "password": "alumno123"})
+    response = client.post("/auth/login", json={"matricula": "22040251", "password": "2604"})
     assert response.status_code == 200
     body = response.json()
     assert "access_token" in body
@@ -7,13 +7,18 @@ def test_login_con_credenciales_correctas_devuelve_token(client, alumno_de_prueb
 
 
 def test_login_con_password_incorrecta_devuelve_401(client, alumno_de_prueba):
-    response = client.post("/auth/login", json={"matricula": "22040251", "password": "incorrecta"})
+    response = client.post("/auth/login", json={"matricula": "22040251", "password": "0000"})
     assert response.status_code == 401
 
 
 def test_login_con_matricula_inexistente_devuelve_401(client):
-    response = client.post("/auth/login", json={"matricula": "00000000", "password": "cualquiera"})
+    response = client.post("/auth/login", json={"matricula": "00000000", "password": "0000"})
     assert response.status_code == 401
+
+
+def test_login_con_password_mal_formada_devuelve_422(client, alumno_de_prueba):
+    response = client.post("/auth/login", json={"matricula": "22040251", "password": "alumno123"})
+    assert response.status_code == 422
 
 
 def test_me_requiere_autenticacion(client):

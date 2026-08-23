@@ -37,7 +37,7 @@ export default function LoginPage() {
       navigate("/dashboard");
     } catch (error) {
       if (error instanceof ApiError && error.status === 401) {
-        toast.error("Número de control o contraseña incorrectos");
+        toast.error("Número de control o NIP incorrectos");
       } else {
         toast.error("No se pudo conectar con el servidor. Intenta de nuevo.");
       }
@@ -102,7 +102,7 @@ export default function LoginPage() {
             <div className="rounded-3xl border bg-card p-2 shadow-elegant">
               <div className="rounded-2xl bg-gradient-soft p-6">
                 <h2 className="font-display text-2xl font-semibold">Iniciar sesión</h2>
-                <p className="mt-1 text-sm text-muted-foreground">Ingresa con tu número de control y contraseña.</p>
+                <p className="mt-1 text-sm text-muted-foreground">Ingresa con tu número de control y NIP.</p>
 
                 <form onSubmit={handleSubmit} className="mt-6 space-y-4">
                   <div className="space-y-1.5">
@@ -121,16 +121,22 @@ export default function LoginPage() {
                   </div>
 
                   <div className="space-y-1.5">
-                    <Label htmlFor="password" className="text-xs uppercase tracking-[0.14em] text-muted-foreground">
-                      Contraseña
-                    </Label>
+                    <div className="flex items-center justify-between">
+                      <Label htmlFor="password" className="text-xs uppercase tracking-[0.14em] text-muted-foreground">
+                        NIP
+                      </Label>
+                      <span className="text-[11px] text-muted-foreground">4 dígitos</span>
+                    </div>
                     <Input
                       id="password"
                       value={password}
-                      onChange={(e) => setPassword(e.target.value)}
+                      onChange={(e) => setPassword(e.target.value.replace(/\D/g, "").slice(0, 4))}
                       type="password"
-                      className="h-11"
-                      placeholder="••••••••"
+                      inputMode="numeric"
+                      maxLength={4}
+                      pattern="\d{4}"
+                      className="h-11 tracking-[0.6em] text-center font-mono text-lg"
+                      placeholder="••••"
                       autoComplete="current-password"
                       required
                     />

@@ -77,7 +77,7 @@ def seed() -> None:
             matricula="22040251",
             nombre="Lamec Isaí Zamora Torres",
             correo="22040251@itdurango.edu.mx",
-            password_hash=hash_password("alumno123"),
+            password_hash=hash_password("2604"),  # NIP de 4 dígitos, no contraseña de texto libre
             carrera="Ingeniería en Sistemas Computacionales",
             semestre=9,
         )
