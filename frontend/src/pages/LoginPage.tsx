@@ -8,6 +8,7 @@ import { SiitLogo } from "@/components/SiitLogo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { ApiError } from "@/lib/api-client";
 
 const featurettes = [
   { icon: ClipboardList, label: "Calificaciones" },
@@ -30,8 +31,12 @@ export default function LoginPage() {
       await login(matricula, password);
       toast.success("Bienvenido");
       navigate("/dashboard");
-    } catch {
-      toast.error("Número de control o contraseña incorrectos");
+    } catch (error) {
+      if (error instanceof ApiError && error.status === 401) {
+        toast.error("Número de control o contraseña incorrectos");
+      } else {
+        toast.error("No se pudo conectar con el servidor. Intenta de nuevo.");
+      }
     } finally {
       setLoading(false);
     }

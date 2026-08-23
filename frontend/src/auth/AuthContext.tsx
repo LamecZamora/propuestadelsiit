@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, type ReactNode } from "react";
 
-import { apiFetch, setToken } from "@/lib/api-client";
+import { apiFetch, hasToken, setToken } from "@/lib/api-client";
 
 interface AuthContextValue {
   isAuthenticated: boolean;
@@ -11,7 +11,7 @@ interface AuthContextValue {
 const AuthContext = createContext<AuthContextValue | null>(null);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [isAuthenticated, setIsAuthenticated] = useState(() => Boolean(localStorage.getItem("siit_token")));
+  const [isAuthenticated, setIsAuthenticated] = useState(() => hasToken());
 
   async function login(matricula: string, password: string) {
     const { access_token } = await apiFetch<{ access_token: string; token_type: string }>("/auth/login", {
