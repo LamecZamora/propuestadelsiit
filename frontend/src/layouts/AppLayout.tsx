@@ -1,5 +1,6 @@
 import { Bell, Command as CommandIcon, LogOut, Search } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
+import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 
 import { useAuth } from "@/auth/AuthContext";
@@ -16,11 +17,25 @@ export function AppLayout() {
   const { open, setOpen } = useCommandPalette();
   const { logout } = useAuth();
   const navigate = useNavigate();
-  const { data: perfil } = useQuery({ queryKey: ["perfil"], queryFn: () => apiFetch<Perfil>("/auth/me") });
+  const { data: perfil, isError } = useQuery({
+    queryKey: ["perfil"],
+    queryFn: () => apiFetch<Perfil>("/auth/me"),
+    retry: false,
+  });
 
   function handleLogout() {
     logout();
     navigate("/");
+  }
+
+  // Si /auth/me falla (p.ej. token expirado), no nos quedamos en "Cargando…"
+  // para siempre: cerramos sesión y mandamos de vuelta al login.
+  useEffect(() => {
+    if (isError) handleLogout();
+  }, [isError]);
+
+  if (isError) {
+    return null;
   }
 
   if (!perfil) {

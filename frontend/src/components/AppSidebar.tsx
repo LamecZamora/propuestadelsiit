@@ -8,6 +8,7 @@ import {
   GraduationCap,
   IdCard,
   LayoutDashboard,
+  type LucideIcon,
   ScrollText,
   TrendingUp,
   Users,
@@ -15,7 +16,6 @@ import {
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
-import { useAuth } from "@/auth/AuthContext";
 import { SiitLogo } from "@/components/SiitLogo";
 import {
   Sidebar,
@@ -31,7 +31,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 
-const groups: Array<{ label: string; items: Array<{ title: string; url: string; icon: any }> }> = [
+const groups: Array<{ label: string; items: Array<{ title: string; url: string; icon: LucideIcon }> }> = [
   { label: "Resumen", items: [{ title: "Inicio", url: "/dashboard", icon: LayoutDashboard }] },
   {
     label: "Información Escolar",
