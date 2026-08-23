@@ -1,0 +1,210 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * SIIT — Sistema Integral de Información, Instituto Tecnológico de Durango
+ * Paleta: blanco + guinda institucional. Tipografía: Space Grotesk + DM Sans.
+ */
+
+@theme inline {
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-soft: var(--primary-soft);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+  --radius: 0.875rem;
+
+  --background: oklch(0.995 0.003 30);
+  --foreground: oklch(0.18 0.04 20);
+
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.18 0.04 20);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.18 0.04 20);
+
+  /* Guinda institucional */
+  --primary: oklch(0.39 0.14 18);
+  --primary-foreground: oklch(0.99 0.005 30);
+  --primary-soft: oklch(0.94 0.04 18);
+
+  --secondary: oklch(0.96 0.01 30);
+  --secondary-foreground: oklch(0.22 0.05 20);
+
+  --muted: oklch(0.965 0.007 30);
+  --muted-foreground: oklch(0.5 0.02 25);
+
+  --accent: oklch(0.94 0.04 18);
+  --accent-foreground: oklch(0.32 0.13 18);
+
+  --destructive: oklch(0.55 0.22 27);
+  --destructive-foreground: oklch(0.99 0.005 30);
+
+  --success: oklch(0.62 0.14 155);
+  --success-foreground: oklch(0.99 0 0);
+  --warning: oklch(0.78 0.15 75);
+  --warning-foreground: oklch(0.25 0.05 60);
+
+  --border: oklch(0.92 0.008 30);
+  --input: oklch(0.92 0.008 30);
+  --ring: oklch(0.39 0.14 18);
+
+  --chart-1: oklch(0.39 0.14 18);
+  --chart-2: oklch(0.55 0.16 22);
+  --chart-3: oklch(0.7 0.1 30);
+  --chart-4: oklch(0.62 0.14 155);
+  --chart-5: oklch(0.55 0.12 250);
+
+  --sidebar: oklch(0.99 0.005 30);
+  --sidebar-foreground: oklch(0.22 0.05 20);
+  --sidebar-primary: oklch(0.39 0.14 18);
+  --sidebar-primary-foreground: oklch(0.99 0.005 30);
+  --sidebar-accent: oklch(0.96 0.02 18);
+  --sidebar-accent-foreground: oklch(0.32 0.13 18);
+  --sidebar-border: oklch(0.92 0.008 30);
+  --sidebar-ring: oklch(0.39 0.14 18);
+
+  --gradient-guinda: linear-gradient(135deg, oklch(0.32 0.13 18) 0%, oklch(0.45 0.16 22) 100%);
+  --gradient-soft: linear-gradient(180deg, oklch(0.99 0.005 30) 0%, oklch(0.97 0.02 18) 100%);
+  --shadow-card: 0 1px 2px oklch(0.18 0.04 20 / 0.04), 0 8px 24px -12px oklch(0.39 0.14 18 / 0.12);
+  --shadow-elegant: 0 20px 50px -20px oklch(0.39 0.14 18 / 0.25);
+
+  /* Estados de la retícula (modo claro) */
+  --reticula-acreditada: oklch(0.62 0.14 145);
+  --reticula-cursando: oklch(0.42 0.13 305);
+  --reticula-cursando-sin-acreditar: oklch(0.86 0.16 95);
+  --reticula-curso-especial: oklch(0.55 0.22 350);
+  --reticula-curso-especial-reprobado: oklch(0.42 0.08 50);
+  --reticula-examen-especial: oklch(0.78 0.14 95);
+  --reticula-examen-especial-reprobado: oklch(0.55 0.21 27);
+  --reticula-posible: oklch(0.45 0.12 250);
+  --reticula-no-permitida: oklch(0.85 0.005 250);
+  --reticula-fg-light: oklch(0.99 0 0);
+  --reticula-fg-dark: oklch(0.18 0.04 20);
+}
+
+.dark {
+  --background: oklch(0.16 0.02 20);
+  --foreground: oklch(0.98 0.005 30);
+  --card: oklch(0.2 0.03 20);
+  --card-foreground: oklch(0.98 0.005 30);
+  --popover: oklch(0.2 0.03 20);
+  --popover-foreground: oklch(0.98 0.005 30);
+  --primary: oklch(0.62 0.16 22);
+  --primary-foreground: oklch(0.16 0.02 20);
+  --primary-soft: oklch(0.28 0.08 20);
+  --secondary: oklch(0.25 0.03 20);
+  --secondary-foreground: oklch(0.98 0.005 30);
+  --muted: oklch(0.24 0.02 20);
+  --muted-foreground: oklch(0.76 0.02 25);
+  --accent: oklch(0.28 0.08 20);
+  --accent-foreground: oklch(0.95 0.02 18);
+  --destructive: oklch(0.65 0.2 27);
+  --destructive-foreground: oklch(0.98 0 0);
+  --success: oklch(0.65 0.14 155);
+  --success-foreground: oklch(0.1 0 0);
+  --warning: oklch(0.78 0.15 75);
+  --warning-foreground: oklch(0.2 0.05 60);
+  --border: oklch(1 0 0 / 14%);
+  --input: oklch(1 0 0 / 18%);
+  --ring: oklch(0.62 0.16 22);
+  --sidebar: oklch(0.18 0.025 20);
+  --sidebar-foreground: oklch(0.95 0.005 30);
+  --sidebar-primary: oklch(0.62 0.16 22);
+  --sidebar-primary-foreground: oklch(0.16 0.02 20);
+  --sidebar-accent: oklch(0.24 0.04 20);
+  --sidebar-accent-foreground: oklch(0.95 0.02 18);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.62 0.16 22);
+
+  /* Gradientes y sombras para dark */
+  --gradient-guinda: linear-gradient(135deg, oklch(0.42 0.16 22) 0%, oklch(0.55 0.18 25) 100%);
+  --gradient-soft: linear-gradient(180deg, oklch(0.18 0.025 20) 0%, oklch(0.22 0.05 20) 100%);
+  --shadow-card: 0 1px 2px oklch(0 0 0 / 0.4), 0 8px 24px -12px oklch(0 0 0 / 0.6);
+  --shadow-elegant: 0 20px 50px -20px oklch(0 0 0 / 0.7);
+
+  /* Retícula en oscuro: tonos más luminosos para mantener legibilidad */
+  --reticula-acreditada: oklch(0.6 0.14 145);
+  --reticula-cursando: oklch(0.58 0.17 305);
+  --reticula-cursando-sin-acreditar: oklch(0.8 0.16 95);
+  --reticula-curso-especial: oklch(0.62 0.2 350);
+  --reticula-curso-especial-reprobado: oklch(0.52 0.1 50);
+  --reticula-examen-especial: oklch(0.74 0.14 95);
+  --reticula-examen-especial-reprobado: oklch(0.62 0.2 27);
+  --reticula-posible: oklch(0.58 0.14 250);
+  --reticula-no-permitida: oklch(0.32 0.01 250);
+  --reticula-fg-light: oklch(0.99 0 0);
+  --reticula-fg-dark: oklch(0.14 0.02 20);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html, body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4, h5 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+}
+
+@layer utilities {
+  .font-display { font-family: var(--font-display); }
+  .bg-gradient-guinda { background: var(--gradient-guinda); }
+  .bg-gradient-soft { background: var(--gradient-soft); }
+  .shadow-card { box-shadow: var(--shadow-card); }
+  .shadow-elegant { box-shadow: var(--shadow-elegant); }
+}
