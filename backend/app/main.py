@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import settings
-from app.routers import auth, calificaciones, dashboard, horario
+from app.routers import auth, calificaciones, dashboard, horario, kardex
 
 app = FastAPI(title="SIIT ITD API")
 
@@ -18,6 +18,7 @@ app.include_router(auth.router)
 app.include_router(calificaciones.router)
 app.include_router(dashboard.router)
 app.include_router(horario.router)
+app.include_router(kardex.router)
 
 
 @app.get("/health")
