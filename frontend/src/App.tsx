@@ -13,7 +13,14 @@ import HorarioPage from "@/pages/HorarioPage";
 import KardexPage from "@/pages/KardexPage";
 import LoginPage from "@/pages/LoginPage";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 1,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 const MODULOS_FUTUROS = [
   "/datos", "/curp", "/examenes", "/avance", "/tutorias",

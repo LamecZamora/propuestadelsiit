@@ -1,6 +1,6 @@
 import { ArrowRight, CalendarDays, ClipboardList, GraduationCap, Loader2, ShieldCheck, Sparkles, Wifi } from "lucide-react";
 import { type FormEvent, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 import { useAuth } from "@/auth/AuthContext";
@@ -18,11 +18,15 @@ const featurettes = [
 ];
 
 export default function LoginPage() {
-  const { login } = useAuth();
+  const { isAuthenticated, login } = useAuth();
   const navigate = useNavigate();
   const [matricula, setMatricula] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+
+  if (isAuthenticated) {
+    return <Navigate to="/dashboard" replace />;
+  }
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
