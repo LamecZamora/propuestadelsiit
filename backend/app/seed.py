@@ -71,6 +71,8 @@ def seed() -> None:
             print("La base ya tiene datos semilla, no se vuelve a sembrar.")
             return
 
+        # Un solo commit al final: si algo falla a la mitad, no queda un
+        # Alumno sembrado a medias que el check de arriba dé por bueno.
         alumno = Alumno(
             matricula="22040251",
             nombre="Lamec Isaí Zamora Torres",
@@ -80,19 +82,16 @@ def seed() -> None:
             semestre=9,
         )
         db.add(alumno)
-        db.commit()
-        db.refresh(alumno)
+        db.flush()
 
         for clave, nombre, creditos, clave_grupo, docente, aula, sesiones, (p1, p2, p3, final) in MATERIAS_ACTUALES:
             materia = Materia(clave=clave, nombre=nombre, creditos=creditos)
             db.add(materia)
-            db.commit()
-            db.refresh(materia)
+            db.flush()
 
             grupo = Grupo(materia_id=materia.id, clave_grupo=clave_grupo, docente_nombre=docente, periodo=settings.CURRENT_PERIODO)
             db.add(grupo)
-            db.commit()
-            db.refresh(grupo)
+            db.flush()
 
             for dia, hora_inicio, hora_fin in sesiones:
                 db.add(HorarioSesion(grupo_id=grupo.id, dia_semana=DIAS[dia], hora_inicio=hora_inicio, hora_fin=hora_fin, aula=aula))
@@ -108,8 +107,7 @@ def seed() -> None:
         for clave, nombre, creditos, periodo, calificacion_final, estado in MATERIAS_HISTORICAS:
             materia = Materia(clave=clave, nombre=nombre, creditos=creditos)
             db.add(materia)
-            db.commit()
-            db.refresh(materia)
+            db.flush()
 
             db.add(
                 Calificacion(
