@@ -15,6 +15,9 @@ router = APIRouter(tags=["calificaciones"])
 
 @router.get("/calificaciones", response_model=list[CalificacionRow])
 def obtener_calificaciones(alumno: Alumno = Depends(get_current_alumno), db: Session = Depends(get_db)) -> list[CalificacionRow]:
+    # A diferencia de /horario, aquí NO se filtra por estado a propósito:
+    # se muestran todas las calificaciones del periodo actual (incluye
+    # materias reprobadas/dadas de baja), no solo las que siguen "cursando".
     registros = (
         db.query(Calificacion)
         .filter(Calificacion.alumno_id == alumno.id, Calificacion.periodo == settings.CURRENT_PERIODO)
