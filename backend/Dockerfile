@@ -9,4 +9,6 @@ COPY app ./app
 COPY alembic ./alembic
 COPY alembic.ini .
 
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Aplica las migraciones antes de arrancar: sin esto, "docker compose up"
+# levanta el backend contra una base vacía y falla en la primera consulta.
+CMD alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000

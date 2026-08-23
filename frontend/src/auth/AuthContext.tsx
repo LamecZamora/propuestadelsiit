@@ -1,6 +1,6 @@
-import { createContext, useContext, useState, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 
-import { apiFetch, hasToken, setToken } from "@/lib/api-client";
+import { apiFetch, hasToken, setToken, setUnauthorizedHandler } from "@/lib/api-client";
 
 interface AuthContextValue {
   isAuthenticated: boolean;
@@ -26,6 +26,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setToken(null);
     setIsAuthenticated(false);
   }
+
+  // Cualquier apiFetch autenticado que reciba un 401 (token vencido/inválido)
+  // cierra sesión aquí; RequireAuth redirige solo al ver isAuthenticated=false.
+  useEffect(() => {
+    setUnauthorizedHandler(logout);
+    return () => setUnauthorizedHandler(null);
+  }, []);
 
   return <AuthContext.Provider value={{ isAuthenticated, login, logout }}>{children}</AuthContext.Provider>;
 }

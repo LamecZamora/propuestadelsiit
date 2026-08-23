@@ -33,3 +33,9 @@ Alumno de prueba: matrícula `22040251`, contraseña `alumno123`.
 ```bash
 cd backend && pytest -v
 ```
+
+## Estado y limitaciones conocidas
+
+- Backend: 33/33 pruebas automatizadas pasando. Migración de Alembic verificada contra SQLite (no había Docker disponible durante el desarrollo); el esquema usa tipos genéricos de SQLAlchemy, por lo que debería aplicar igual en PostgreSQL, pero **no se ha corrido `alembic upgrade head` contra Postgres real todavía**.
+- Frontend: `npm run build` limpio. Se hizo una prueba parcial de enrutado/manejo de errores con `vite preview` sin backend real corriendo.
+- **No se ha hecho una prueba manual completa en el navegador con el backend y Postgres reales** (login → dashboard → horario → calificaciones → kardex → logout). Es el primer paso pendiente antes de considerar la Fase 1 verificada de punta a punta — instalar Docker (o correr Postgres de otra forma), levantar ambos servicios con las instrucciones de arriba, y probar el flujo completo con el alumno de prueba.
