@@ -29,4 +29,7 @@ def obtener_perfil(alumno: Alumno = Depends(get_current_alumno)) -> AlumnoPerfil
         correo=alumno.correo,
         carrera=alumno.carrera,
         semestre=alumno.semestre,
+        plan_estudios=alumno.plan_estudios,
+        reticula=alumno.reticula,
+        especialidad=alumno.especialidad,
     )

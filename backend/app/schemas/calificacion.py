@@ -7,4 +7,4 @@ class CalificacionRow(BaseModel):
     grupo: str
     docente: str
     periodo: str
-    parciales: list[float | None]
+    unidades: list[float | None]

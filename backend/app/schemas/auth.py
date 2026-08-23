@@ -19,3 +19,6 @@ class AlumnoPerfil(BaseModel):
     correo: str
     carrera: str
     semestre: int
+    plan_estudios: str
+    reticula: int
+    especialidad: str

@@ -8,6 +8,8 @@ class KardexMateria(BaseModel):
     creditos: int
     final: float | None
     estado: str
+    evaluacion: str | None
+    observaciones: str | None
 
 
 class KardexPeriodo(BaseModel):
@@ -23,10 +25,14 @@ class PerfilKardex(BaseModel):
     numero_control: str
     carrera: str
     semestre: int
+    plan_estudios: str
+    reticula: int
+    especialidad: str
 
 
 class ResumenKardex(BaseModel):
     promedio_aritmetico: float
+    promedio_certificado: float
     creditos_cursados: int
     creditos_aprobados: int
 

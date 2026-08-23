@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { apiFetch } from "@/lib/api-client";
 import { settings } from "@/lib/settings";
 
-type CalificacionRow = { materia_clave: string; materia_nombre: string; parciales: (number | null)[] };
+type CalificacionRow = { materia_clave: string; materia_nombre: string; unidades: (number | null)[] };
 type DashboardData = { promedio_general: number | null; materias_en_curso: number; proxima_clase: { materia: string; dia_semana: string; hora_inicio: string; aula: string | null } | null };
 
 const avisos = [
@@ -77,7 +77,7 @@ export default function DashboardPage() {
         <CardContent>
           <ul className="divide-y">
             {(calificaciones ?? []).map((m) => {
-              const [p1, p2, p3] = m.parciales;
+              const [p1, p2, p3] = m.unidades;
               return (
                 <li key={m.materia_clave} className="flex items-center justify-between gap-3 py-3">
                   <div className="flex items-center gap-3">

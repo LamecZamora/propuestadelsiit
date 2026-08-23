@@ -2,7 +2,7 @@ import re
 from dataclasses import dataclass
 from datetime import datetime, time
 
-DIAS_SEMANA = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"]
+DIAS_SEMANA = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"]
 
 
 @dataclass

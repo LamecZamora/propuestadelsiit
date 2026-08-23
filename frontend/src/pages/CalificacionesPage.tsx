@@ -10,10 +10,10 @@ type CalificacionRow = {
   grupo: string;
   docente: string;
   periodo: string;
-  parciales: (number | null)[];
+  unidades: (number | null)[];
 };
 
-const unidadHeaders = ["I", "II", "III"];
+const unidadHeaders = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"];
 
 function promedio(nums: (number | null)[]): number | null {
   const v = nums.filter((n): n is number => typeof n === "number");
@@ -29,9 +29,9 @@ export default function CalificacionesPage() {
 
   const rows = data ?? [];
   const periodo = rows[0]?.periodo ?? "—";
-  const promedios = rows.map((r) => promedio(r.parciales)).filter((p): p is number => p !== null);
+  const promedios = rows.map((r) => promedio(r.unidades)).filter((p): p is number => p !== null);
   const promedioGeneral = promedios.length ? promedios.reduce((a, b) => a + b, 0) / promedios.length : 0;
-  const unidadesEval = rows.reduce((a, r) => a + r.parciales.filter((u) => u !== null).length, 0);
+  const unidadesEval = rows.reduce((a, r) => a + r.unidades.filter((u) => u !== null).length, 0);
 
   return (
     <div className="mx-auto max-w-[1300px] space-y-6">
@@ -55,7 +55,7 @@ export default function CalificacionesPage() {
           ) : rows.length === 0 ? (
             <div className="p-10 text-center text-sm text-muted-foreground">Sin calificaciones registradas todavía.</div>
           ) : (
-            <table className="w-full min-w-[900px] text-sm">
+            <table className="w-full min-w-[1400px] text-sm">
               <thead>
                 <tr className="bg-secondary/60 text-left text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
                   <th className="px-4 py-3">Materia / Docente</th>
@@ -68,7 +68,7 @@ export default function CalificacionesPage() {
               </thead>
               <tbody>
                 {rows.map((m) => {
-                  const prom = promedio(m.parciales);
+                  const prom = promedio(m.unidades);
                   return (
                     <tr key={m.materia_clave} className="border-t align-top hover:bg-secondary/30">
                       <td className="px-4 py-3">
@@ -79,7 +79,7 @@ export default function CalificacionesPage() {
                       <td className="px-3 py-3 text-center">
                         <span className="rounded-md bg-primary-soft px-2 py-0.5 font-mono text-xs font-medium text-primary">{m.grupo}</span>
                       </td>
-                      {m.parciales.map((u, i) => (
+                      {m.unidades.map((u, i) => (
                         <td key={i} className="px-1 py-3 text-center">
                           {u !== null ? (
                             <span

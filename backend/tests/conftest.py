@@ -50,6 +50,10 @@ def alumno_de_prueba(db_session):
         password_hash=hash_password("2604"),  # NIP de 4 dígitos
         carrera="Ingeniería en Sistemas Computacionales",
         semestre=9,
+        plan_estudios="ISIC-2010-224",
+        reticula=4,
+        especialidad="Seguridad Informática 2025",
+        promedio_certificado=87.93,
     )
     db_session.add(alumno)
     db_session.commit()
@@ -95,11 +99,11 @@ def datos_academicos_basicos(db_session, alumno_de_prueba):
             materia_id=materia_actual.id,
             grupo_id=grupo.id,
             periodo="Enero – Junio 2026",
-            parcial1=92.0,
-            parcial2=90.0,
-            parcial3=94.0,
-            final=92.0,
+            unidades=[92.0, 90.0, 94.0, None, None, None, None, None, None, None],
+            final=None,
             estado="cursando",
+            evaluacion=None,
+            observaciones=None,
         )
     )
     db_session.add(
@@ -107,14 +111,48 @@ def datos_academicos_basicos(db_session, alumno_de_prueba):
             alumno_id=alumno_de_prueba.id,
             materia_id=materia_historica.id,
             grupo_id=None,
-            periodo="ENE-JUN/2021",
-            parcial1=None,
-            parcial2=None,
-            parcial3=None,
+            periodo="ENE-JUN/2022",
+            unidades=[None] * 10,
             final=88.0,
             estado="acreditada",
+            evaluacion="Ev.Ord.1ra",
+            observaciones=None,
         )
     )
     db_session.commit()
 
     return {"materia_actual": materia_actual, "grupo": grupo, "materia_historica": materia_historica}
+
+
+@pytest.fixture()
+def avance_de_prueba(db_session, alumno_de_prueba):
+    """Dos materias en la retícula: una acreditada en semestre 1, una
+    cursando en semestre 2, para probar el agrupado por columna."""
+    materia_s1 = models.Materia(clave="CO1001", nombre="Cálculo Diferencial", creditos=5)
+    materia_s2 = models.Materia(clave="ACF0902", nombre="Cálculo Integral", creditos=5)
+    db_session.add_all([materia_s1, materia_s2])
+    db_session.commit()
+    db_session.refresh(materia_s1)
+    db_session.refresh(materia_s2)
+
+    db_session.add(
+        models.AvanceMateria(
+            alumno_id=alumno_de_prueba.id,
+            materia_id=materia_s1.id,
+            semestre_curricular=1,
+            estado="acreditada",
+            calificacion_display="80/O1",
+        )
+    )
+    db_session.add(
+        models.AvanceMateria(
+            alumno_id=alumno_de_prueba.id,
+            materia_id=materia_s2.id,
+            semestre_curricular=2,
+            estado="cursando",
+            calificacion_display=None,
+        )
+    )
+    db_session.commit()
+
+    return {"materia_s1": materia_s1, "materia_s2": materia_s2}

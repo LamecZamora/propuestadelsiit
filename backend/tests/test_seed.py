@@ -22,12 +22,14 @@ def test_seed_crea_los_datos_esperados(monkeypatch):
     session = TestSession()
     try:
         assert session.query(models.Alumno).count() == 1
-        assert session.query(models.Materia).count() == 15
+        assert session.query(models.Materia).count() == 56
         assert session.query(models.Grupo).count() == 6
-        assert session.query(models.Calificacion).count() == 15
-        # 6 materias del periodo actual + "Programación Avanzada I" (histórica, aún en curso) = 7
-        assert session.query(models.Calificacion).filter_by(estado="cursando").count() == 7
-        assert session.query(models.Calificacion).filter_by(estado="acreditada").count() == 8
+        assert session.query(models.HorarioSesion).count() == 24
+        assert session.query(models.Calificacion).count() == 53
+        assert session.query(models.Calificacion).filter_by(estado="cursando").count() == 6
+        assert session.query(models.Calificacion).filter_by(estado="acreditada").count() == 42
+        assert session.query(models.Calificacion).filter_by(estado="no_acreditada").count() == 5
+        assert session.query(models.AvanceMateria).count() == 55
     finally:
         session.close()
 

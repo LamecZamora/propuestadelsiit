@@ -17,7 +17,7 @@ type HorarioRow = {
 };
 type HorarioResponse = { periodo: string; rows: HorarioRow[] };
 
-const dias = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
+const dias = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
 
 export default function HorarioPage() {
   const { data, isLoading, error } = useQuery({
@@ -42,7 +42,7 @@ export default function HorarioPage() {
           ) : rows.length === 0 ? (
             <div className="p-10 text-center text-sm text-muted-foreground">No tienes materias inscritas en este periodo.</div>
           ) : (
-            <table className="w-full min-w-[920px] text-sm">
+            <table className="w-full min-w-[1030px] text-sm">
               <thead>
                 <tr className="bg-secondary/60 text-left text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
                   <th className="px-4 py-3">Materia / Docente</th>
@@ -87,7 +87,7 @@ export default function HorarioPage() {
                 <tr className="border-t bg-gradient-guinda text-primary-foreground">
                   <td colSpan={2} className="px-4 py-2.5 text-right text-xs font-semibold uppercase tracking-[0.14em]">Total créditos</td>
                   <td className="px-3 py-2.5 text-center font-mono text-sm font-semibold">{totalCreditos}</td>
-                  <td colSpan={5} />
+                  <td colSpan={6} />
                 </tr>
               </tfoot>
             </table>

@@ -6,12 +6,29 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { apiFetch } from "@/lib/api-client";
 
-type KardexMateria = { no: number; clave: string; nombre: string; creditos: number; final: number | null; estado: string };
+type KardexMateria = {
+  no: number;
+  clave: string;
+  nombre: string;
+  creditos: number;
+  final: number | null;
+  estado: string;
+  evaluacion: string | null;
+  observaciones: string | null;
+};
 type KardexPeriodo = { periodo: string; promedio: number; creditos_cursados: number; creditos_aprobados: number; rows: KardexMateria[] };
 type KardexResponse = {
-  perfil: { nombre: string; numero_control: string; carrera: string; semestre: number };
+  perfil: {
+    nombre: string;
+    numero_control: string;
+    carrera: string;
+    semestre: number;
+    plan_estudios: string;
+    reticula: number;
+    especialidad: string;
+  };
   periodos: KardexPeriodo[];
-  resumen: { promedio_aritmetico: number; creditos_cursados: number; creditos_aprobados: number };
+  resumen: { promedio_aritmetico: number; promedio_certificado: number; creditos_cursados: number; creditos_aprobados: number };
 };
 
 export default function KardexPage() {
@@ -36,11 +53,11 @@ export default function KardexPage() {
             <Cell k="No. de control" v={perfil?.numero_control ?? "—"} />
             <Cell k="Nombre" v={perfil?.nombre ?? "—"} />
             <Cell k="Semestre" v={perfil ? `${perfil.semestre}º` : "—"} />
-            <Cell k="Promedio acumulado" v={resumen ? resumen.promedio_aritmetico.toFixed(2) : "—"} />
+            <Cell k="Periodo escolar" v={periodos.at(-1)?.periodo ?? "—"} />
             <Cell k="Carrera" v={perfil?.carrera ?? "—"} />
-            <Cell k="Créditos cursados" v={resumen ? String(resumen.creditos_cursados) : "—"} />
-            <Cell k="Créditos aprobados" v={resumen ? String(resumen.creditos_aprobados) : "—"} />
-            <Cell k="Periodos cursados" v={String(periodos.length)} />
+            <Cell k="Retícula" v={perfil ? String(perfil.reticula) : "—"} />
+            <Cell k="Especialidad" v={perfil?.especialidad ?? "—"} />
+            <Cell k="Prom. acumulado" v={resumen ? resumen.promedio_certificado.toFixed(2) : "—"} />
           </div>
         </CardContent>
       </Card>
@@ -63,7 +80,7 @@ export default function KardexPage() {
                   </div>
                 </div>
                 <div className="overflow-x-auto">
-                  <table className="w-full min-w-[820px] text-sm">
+                  <table className="w-full min-w-[960px] text-sm">
                     <thead>
                       <tr className="bg-secondary/60 text-left text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
                         <th className="px-4 py-2.5 w-10">No.</th>
@@ -71,7 +88,8 @@ export default function KardexPage() {
                         <th className="px-4 py-2.5">Materia</th>
                         <th className="px-4 py-2.5 w-16 text-center">Cred.</th>
                         <th className="px-4 py-2.5 w-24 text-center">Calif.</th>
-                        <th className="px-4 py-2.5 w-28">Estado</th>
+                        <th className="px-4 py-2.5 w-28">Evaluación</th>
+                        <th className="px-4 py-2.5 w-32">Estado</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -82,17 +100,23 @@ export default function KardexPage() {
                           <tr key={`${p.periodo}-${r.clave}-${r.no}`} className="border-t hover:bg-secondary/30">
                             <td className="px-4 py-2.5 text-muted-foreground">{r.no}</td>
                             <td className="px-4 py-2.5 font-mono text-[12px]">{r.clave}</td>
-                            <td className="px-4 py-2.5 font-medium">{r.nombre}</td>
+                            <td className="px-4 py-2.5 font-medium">
+                              {r.nombre}
+                              {r.observaciones && (
+                                <div className="text-[10px] font-normal uppercase tracking-[0.08em] text-warning">{r.observaciones}</div>
+                              )}
+                            </td>
                             <td className="px-4 py-2.5 text-center font-mono">{r.creditos}</td>
                             <td className={`px-4 py-2.5 text-center font-mono font-semibold ${reprobado ? "text-destructive" : ""}`}>{display}</td>
-                            <td className="px-4 py-2.5 text-xs text-muted-foreground capitalize">{r.estado}</td>
+                            <td className="px-4 py-2.5 text-xs text-muted-foreground">{r.evaluacion ?? "—"}</td>
+                            <td className="px-4 py-2.5 text-xs text-muted-foreground capitalize">{r.estado.replace(/_/g, " ")}</td>
                           </tr>
                         );
                       })}
                     </tbody>
                     <tfoot>
                       <tr className="border-t bg-primary-soft/60 text-xs">
-                        <td colSpan={3} className="px-4 py-2 text-right font-semibold uppercase tracking-[0.14em] text-primary">Promedio del periodo</td>
+                        <td colSpan={4} className="px-4 py-2 text-right font-semibold uppercase tracking-[0.14em] text-primary">Promedio del periodo</td>
                         <td className="px-4 py-2 text-center font-mono font-semibold">{p.promedio.toFixed(2)}</td>
                         <td className="px-4 py-2 text-right font-semibold uppercase tracking-[0.14em] text-primary">Cr. cur./apr.</td>
                         <td className="px-4 py-2 font-mono">{p.creditos_cursados} / {p.creditos_aprobados}</td>
@@ -108,8 +132,9 @@ export default function KardexPage() {
 
       {resumen && (
         <Card>
-          <CardContent className="grid gap-4 p-6 md:grid-cols-3">
-            <Stat label="Promedio aritmético" value={resumen.promedio_aritmetico.toFixed(2)} highlight />
+          <CardContent className="grid gap-4 p-6 md:grid-cols-4">
+            <Stat label="Promedio aritmético" value={resumen.promedio_aritmetico.toFixed(2)} />
+            <Stat label="Promedio certificado" value={resumen.promedio_certificado.toFixed(2)} highlight />
             <Stat label="Créditos cursados" value={String(resumen.creditos_cursados)} />
             <Stat label="Créditos aprobados" value={String(resumen.creditos_aprobados)} />
           </CardContent>

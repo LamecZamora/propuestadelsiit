@@ -35,7 +35,7 @@ def obtener_calificaciones(alumno: Alumno = Depends(get_current_alumno), db: Ses
                 grupo=grupo.clave_grupo if grupo else "—",
                 docente=grupo.docente_nombre if grupo else "Por asignar",
                 periodo=registro.periodo,
-                parciales=[registro.parcial1, registro.parcial2, registro.parcial3],
+                unidades=registro.unidades,
             )
         )
     return rows
