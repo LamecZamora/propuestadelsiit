@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { ArrowUpRight, CalendarDays, ClipboardList, GraduationCap, AlertTriangle, CheckCircle2, Info, Mail } from "lucide-react";
+import { ArrowUpRight, CalendarDays, ClipboardList, GraduationCap, AlertTriangle, CheckCircle2, Info, type LucideIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 
 import { Badge } from "@/components/ui/badge";
@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { apiFetch } from "@/lib/api-client";
 import { settings } from "@/lib/settings";
 
-type CalificacionRow = { materia_nombre: string; parciales: (number | null)[] };
+type CalificacionRow = { materia_clave: string; materia_nombre: string; parciales: (number | null)[] };
 type DashboardData = { promedio_general: number | null; materias_en_curso: number; proxima_clase: { materia: string; dia_semana: string; hora_inicio: string; aula: string | null } | null };
 
 const avisos = [
@@ -79,7 +79,7 @@ export default function DashboardPage() {
             {(calificaciones ?? []).map((m) => {
               const [p1, p2, p3] = m.parciales;
               return (
-                <li key={m.materia_nombre} className="flex items-center justify-between gap-3 py-3">
+                <li key={m.materia_clave} className="flex items-center justify-between gap-3 py-3">
                   <div className="flex items-center gap-3">
                     <GraduationCap className="h-4 w-4 text-primary" />
                     <span className="text-sm font-medium">{m.materia_nombre}</span>
@@ -125,7 +125,7 @@ function Metric({ label, value }: { label: string; value: string }) {
   );
 }
 
-function QuickAction({ to, icon: Icon, title, hint }: { to: string; icon: any; title: string; hint: string }) {
+function QuickAction({ to, icon: Icon, title, hint }: { to: string; icon: LucideIcon; title: string; hint: string }) {
   return (
     <Link to={to} className="group flex items-center gap-3 rounded-2xl border bg-card p-4 shadow-card transition hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-elegant">
       <div className="grid h-11 w-11 place-items-center rounded-xl bg-primary-soft text-primary">

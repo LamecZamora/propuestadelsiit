@@ -38,7 +38,7 @@ export default function CalificacionesPage() {
       <PageHeader title="Calificaciones parciales" subtitle={`Periodo: ${periodo}`} />
 
       <div className="grid gap-4 md:grid-cols-3">
-        <Stat label="Promedio del periodo" value={promedioGeneral ? promedioGeneral.toFixed(1) : "—"} highlight />
+        <Stat label="Promedio del periodo" value={promedios.length ? promedioGeneral.toFixed(1) : "—"} highlight />
         <Stat label="Materias inscritas" value={String(rows.length)} />
         <Stat label="Unidades evaluadas" value={String(unidadesEval)} />
       </div>
