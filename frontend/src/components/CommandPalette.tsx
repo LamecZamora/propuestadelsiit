@@ -1,21 +1,4 @@
-import {
-  BookOpen,
-  CalendarDays,
-  ClipboardCheck,
-  ClipboardList,
-  FileSearch,
-  FileSignature,
-  GraduationCap,
-  IdCard,
-  LayoutDashboard,
-  LogOut,
-  Moon,
-  ScrollText,
-  Sun,
-  TrendingUp,
-  Users,
-  Wifi,
-} from "lucide-react";
+import { LogOut, Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -30,24 +13,9 @@ import {
   CommandList,
   CommandSeparator,
 } from "@/components/ui/command";
+import { NAV_ITEMS } from "@/lib/nav";
 
-const routes = [
-  { url: "/dashboard", label: "Inicio", icon: LayoutDashboard, group: "Navegación" },
-  { url: "/datos", label: "Datos escolares", icon: GraduationCap, group: "Navegación" },
-  { url: "/curp", label: "CURP y Beca", icon: IdCard, group: "Navegación" },
-  { url: "/horario", label: "Horario", icon: CalendarDays, group: "Navegación" },
-  { url: "/calificaciones", label: "Calificaciones", icon: ClipboardList, group: "Navegación" },
-  { url: "/examenes", label: "Exámenes esp./globales", icon: FileSearch, group: "Navegación" },
-  { url: "/kardex", label: "Kardex", icon: BookOpen, group: "Navegación" },
-  { url: "/avance", label: "Avance reticular", icon: TrendingUp, group: "Navegación" },
-  { url: "/tutorias", label: "Tutorías", icon: Users, group: "Navegación" },
-  { url: "/inscripcion", label: "Reinscripción", icon: FileSignature, group: "Inscripciones" },
-  { url: "/grupos", label: "Grupos cargados", icon: Users, group: "Inscripciones" },
-  { url: "/evaluacion", label: "Evaluación docente", icon: ClipboardCheck, group: "Evaluaciones" },
-  { url: "/auditoria", label: "Auditoría de servicios", icon: ScrollText, group: "Evaluaciones" },
-  { url: "/contrato", label: "Contrato", icon: FileSignature, group: "Cuenta" },
-  { url: "/cuenta", label: "Cuenta internet", icon: Wifi, group: "Cuenta" },
-];
+const routes = NAV_ITEMS.map((item) => ({ url: item.url, label: item.title, icon: item.icon, group: item.group }));
 
 export function CommandPalette({ open, onOpenChange }: { open: boolean; onOpenChange: (v: boolean) => void }) {
   const navigate = useNavigate();

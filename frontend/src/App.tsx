@@ -11,10 +11,14 @@ import BecaPage from "@/pages/BecaPage";
 import CalificacionesPage from "@/pages/CalificacionesPage";
 import ComingSoonPage from "@/pages/ComingSoonPage";
 import DashboardPage from "@/pages/DashboardPage";
+import ExtraescolarPage from "@/pages/ExtraescolarPage";
+import FichaPagoPage from "@/pages/FichaPagoPage";
 import HorarioPage from "@/pages/HorarioPage";
 import KardexPage from "@/pages/KardexPage";
 import LoginPage from "@/pages/LoginPage";
 import ReinscripcionPage from "@/pages/ReinscripcionPage";
+import ResidenciasPage from "@/pages/ResidenciasPage";
+import { NAV_ITEMS } from "@/lib/nav";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -25,10 +29,13 @@ const queryClient = new QueryClient({
   },
 });
 
-const MODULOS_FUTUROS = [
-  "/datos", "/examenes", "/tutorias",
-  "/grupos", "/evaluacion", "/auditoria", "/contrato", "/cuenta",
-];
+// Rutas de NAV_ITEMS que ya tienen página real construida — todo lo demás
+// del sidebar/buscador cae automáticamente en ComingSoonPage.
+const RUTAS_CONSTRUIDAS = new Set([
+  "/dashboard", "/horario", "/calificaciones", "/kardex", "/avance",
+  "/curp", "/inscripcion", "/residencias", "/ficha-pago", "/extraescolar",
+]);
+const MODULOS_FUTUROS = NAV_ITEMS.map((item) => item.url).filter((url) => !RUTAS_CONSTRUIDAS.has(url));
 
 export default function App() {
   return (
@@ -47,6 +54,9 @@ export default function App() {
                   <Route path="/avance" element={<AvancePage />} />
                   <Route path="/curp" element={<BecaPage />} />
                   <Route path="/inscripcion" element={<ReinscripcionPage />} />
+                  <Route path="/residencias" element={<ResidenciasPage />} />
+                  <Route path="/ficha-pago" element={<FichaPagoPage />} />
+                  <Route path="/extraescolar" element={<ExtraescolarPage />} />
                   {MODULOS_FUTUROS.map((path) => (
                     <Route key={path} path={path} element={<ComingSoonPage />} />
                   ))}

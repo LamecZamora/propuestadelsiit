@@ -8,6 +8,7 @@ from app.database import Base, SessionLocal, engine
 from app.models.alumno import Alumno
 from app.models.avance import AvanceMateria
 from app.models.calificacion import Calificacion
+from app.models.ficha_pago import FichaPago
 from app.models.grupo import Grupo, HorarioSesion
 from app.models.materia import Materia
 from app.models.reinscripcion import EstatusReinscripcion
@@ -270,6 +271,21 @@ def seed() -> None:
                 adeudo_escolares=False,
                 adeudo_financieros=False,
                 adeudo_encuesta=False,
+            )
+        )
+
+        # Ficha de depósito real del periodo (datos tomados de la captura
+        # "Ficha de Depósito"). No se siembra ninguna Residencia: el alumno
+        # real no tiene una registrada todavía ("No tiene Residencia
+        # Registrada" en la pantalla real).
+        db.add(
+            FichaPago(
+                alumno_id=alumno.id,
+                periodo="ENERO-JUNIO/2026",
+                concepto="Inscripción Reingreso",
+                monto=3000.00,
+                referencia_bancaria="922040251152073262",
+                fecha_vencimiento="31/12/2026",
             )
         )
 

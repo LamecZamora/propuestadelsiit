@@ -1,19 +1,3 @@
-import {
-  BookOpen,
-  CalendarDays,
-  ClipboardCheck,
-  ClipboardList,
-  FileSearch,
-  FileSignature,
-  GraduationCap,
-  IdCard,
-  LayoutDashboard,
-  type LucideIcon,
-  ScrollText,
-  TrendingUp,
-  Users,
-  Wifi,
-} from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
 import { SiitLogo } from "@/components/SiitLogo";
@@ -30,44 +14,9 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { agruparNavItems, NAV_ITEMS } from "@/lib/nav";
 
-const groups: Array<{ label: string; items: Array<{ title: string; url: string; icon: LucideIcon }> }> = [
-  { label: "Resumen", items: [{ title: "Inicio", url: "/dashboard", icon: LayoutDashboard }] },
-  {
-    label: "Información Escolar",
-    items: [
-      { title: "Datos escolares", url: "/datos", icon: GraduationCap },
-      { title: "CURP y Beca", url: "/curp", icon: IdCard },
-      { title: "Horario", url: "/horario", icon: CalendarDays },
-      { title: "Calificaciones", url: "/calificaciones", icon: ClipboardList },
-      { title: "Exámenes esp./globales", url: "/examenes", icon: FileSearch },
-      { title: "Kardex", url: "/kardex", icon: BookOpen },
-      { title: "Avance reticular", url: "/avance", icon: TrendingUp },
-      { title: "Tutorías", url: "/tutorias", icon: Users },
-    ],
-  },
-  {
-    label: "Inscripciones",
-    items: [
-      { title: "Reinscripción", url: "/inscripcion", icon: FileSignature },
-      { title: "Grupos cargados", url: "/grupos", icon: Users },
-    ],
-  },
-  {
-    label: "Evaluaciones",
-    items: [
-      { title: "Evaluación docente", url: "/evaluacion", icon: ClipboardCheck },
-      { title: "Auditoría de servicios", url: "/auditoria", icon: ScrollText },
-    ],
-  },
-  {
-    label: "Cuenta",
-    items: [
-      { title: "Contrato", url: "/contrato", icon: FileSignature },
-      { title: "Cuenta internet", url: "/cuenta", icon: Wifi },
-    ],
-  },
-];
+const groups = agruparNavItems(NAV_ITEMS);
 
 function iniciales(nombre: string): string {
   const partes = nombre.trim().split(/\s+/);
