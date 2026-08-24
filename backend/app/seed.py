@@ -8,6 +8,7 @@ from app.database import Base, SessionLocal, engine
 from app.models.alumno import Alumno
 from app.models.avance import AvanceMateria
 from app.models.calificacion import Calificacion
+from app.models.datos_escolares import DatosEscolares
 from app.models.ficha_pago import FichaPago
 from app.models.grupo import Grupo, HorarioSesion
 from app.models.materia import Materia
@@ -286,6 +287,47 @@ def seed() -> None:
                 monto=3000.00,
                 referencia_bancaria="922040251152073262",
                 fecha_vencimiento="31/12/2026",
+            )
+        )
+
+        # Datos generales / socioeconómicos / familiares / de trabajo
+        # reales (captura "Datos Generales del Alumno"). Los campos de
+        # padres y trabajo están vacíos en la captura real — se siembran
+        # como None, no se inventan valores.
+        db.add(
+            DatosEscolares(
+                alumno_id=alumno.id,
+                apellido_paterno="Zamora",
+                apellido_materno="Torres",
+                nombre_pila="Lamec Isaí",
+                lugar_nacimiento="Durango",
+                fecha_nacimiento="2003-10-02",
+                sexo="Masculino",
+                estado_civil="Soltero(a)",
+                discapacidad="No presenta",
+                domicilio="X",
+                colonia="X",
+                codigo_postal="0",
+                ciudad="X",
+                entidad_federativa="Durango",
+                telefono=None,
+                correo_personal="cemallamec02034@gmail.com",
+                grado_academico="Licenciatura",
+                promedio_semestre_anterior=78.86,
+                becado_por=None,
+                materias_examen_especial=None,
+                ingreso_mensual=5900.0,
+                integrantes_hogar=3,
+                grupo_etnico=False,
+                riesgo_abandono="Ninguno",
+                nombre_padre=None, domicilio_padre=None, colonia_padre=None,
+                ciudad_padre=None, entidad_padre=None, telefono_padre=None,
+                nombre_madre=None, domicilio_madre=None, colonia_madre=None,
+                ciudad_madre=None, entidad_madre=None, telefono_madre=None,
+                empresa_nombre=None, empresa_domicilio=None, empresa_colonia=None,
+                empresa_ciudad=None, empresa_entidad=None, empresa_telefono=None,
+                puesto=None, antiguedad=None, jefe_inmediato=None,
+                turno="Matutino",
             )
         )
 

@@ -8,6 +8,7 @@ from app.routers import (
     beca,
     calificaciones,
     dashboard,
+    datos_escolares,
     extraescolar,
     ficha_pago,
     horario,
@@ -31,6 +32,7 @@ app.include_router(avance.router)
 app.include_router(beca.router)
 app.include_router(calificaciones.router)
 app.include_router(dashboard.router)
+app.include_router(datos_escolares.router)
 app.include_router(extraescolar.router)
 app.include_router(ficha_pago.router)
 app.include_router(horario.router)
