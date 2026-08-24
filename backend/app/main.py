@@ -11,6 +11,7 @@ from app.routers import (
     datos_escolares,
     extraescolar,
     ficha_pago,
+    grupos_cargados,
     horario,
     kardex,
     reinscripcion,
@@ -35,6 +36,7 @@ app.include_router(dashboard.router)
 app.include_router(datos_escolares.router)
 app.include_router(extraescolar.router)
 app.include_router(ficha_pago.router)
+app.include_router(grupos_cargados.router)
 app.include_router(horario.router)
 app.include_router(kardex.router)
 app.include_router(reinscripcion.router)

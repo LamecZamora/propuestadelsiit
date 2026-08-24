@@ -1,6 +1,6 @@
 from datetime import time
 
-from sqlalchemy import ForeignKey, String, Time
+from sqlalchemy import ForeignKey, Integer, String, Time
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.database import Base
@@ -14,6 +14,7 @@ class Grupo(Base):
     clave_grupo: Mapped[str] = mapped_column(String(20), nullable=False)
     docente_nombre: Mapped[str] = mapped_column(String(200), nullable=False)
     periodo: Mapped[str] = mapped_column(String(50), nullable=False)
+    semestre: Mapped[int | None] = mapped_column(Integer, nullable=True)
 
     materia: Mapped["Materia"] = relationship()
     sesiones: Mapped[list["HorarioSesion"]] = relationship(back_populates="grupo")

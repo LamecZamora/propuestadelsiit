@@ -179,6 +179,210 @@ AVANCE_RETICULA = [
 ]
 
 
+def _u(dias: str, hi: int, mi: int, hf: int, mf: int, aula: str) -> list[tuple]:
+    """Expande días con el mismo horario/aula a una lista de sesiones (dia, hora_inicio, hora_fin, aula)."""
+    return [(d, time(hi, mi), time(hf, mf), aula) for d in dias]
+
+
+# Catálogo institucional completo "Grupos Cargados al periodo AGOSTO-DICIEMBRE/2026"
+# (clave, nombre, creditos, clave_grupo, docente, semestre, sesiones).
+# Transcrito de las 9 capturas reales del menú "Grupos Cargados" (no son datos
+# del propio alumno — es el catálogo completo de grupos de toda la carrera,
+# semestres 1-9). Docente "Pendiente" tal como lo muestra el sistema real
+# cuando aún no hay profesor asignado.
+GRUPOS_CARGADOS = [
+    # Semestre 1
+    ("CO1001", "Cálculo Diferencial", 5, "1QY", "Quiñones Tinoco Luis Armando", 1, _u("LMXJV", 11, 0, 12, 0, "SC13")),
+    ("CO1006", "Taller de Ética", 4, "1QY", "Arrieta Cabrales Karla Vianey", 1, _u("LMXJ", 7, 0, 8, 0, "SC13")),
+    ("SI1800", "Fundamentos de Programación", 5, "1Y", "Pendiente", 1, _u("LMXJV", 7, 0, 8, 0, "LC3")),
+    ("SCC0000", "Tutoría I", 0, "1Y", "Alexander Anderson Huerta Juan", 1, _u("J", 8, 0, 9, 0, "SC1")),
+    ("SI1850", "Fundamentos de Investigación", 4, "1Y", "Ortiz Parga Maria Luisa", 1, _u("LMXJ", 12, 0, 13, 0, "SC1")),
+    ("CO1001", "Cálculo Diferencial", 5, "1Y", "Lerma Heredia Abraham", 1, _u("LMXJV", 11, 0, 12, 0, "SC1")),
+    ("CO1006", "Taller de Ética", 4, "1Y", "Pendiente", 1, _u("LMXJV", 9, 0, 10, 0, "SC1")),
+    ("SI1801", "Matemáticas Discretas", 5, "1Y", "Rincon Montero Rebeca Idaly", 1, _u("LMXJV", 10, 0, 11, 0, "SC1")),
+    ("SI1802", "Taller de Administración", 4, "1Y", "Montes Marrero Susana Elizabeth", 1, _u("LMXV", 8, 0, 9, 0, "SC1")),
+    ("SI1800", "Fundamentos de Programación", 5, "1Y1", "Gallegos de la Hoya Erasmo", 1, _u("LMXJV", 7, 0, 8, 0, "LC4")),
+    ("SCC0000", "Tutoría I", 0, "1Y1", "Dominguez Flores Araceli Soledad", 1, _u("J", 8, 0, 9, 0, "SC5")),
+    ("SI1850", "Fundamentos de Investigación", 4, "1Y1", "Pendiente", 1, _u("LMXJ", 12, 0, 13, 0, "SC11")),
+    ("SI1800", "Fundamentos de Programación", 5, "1YA", "Alexander Anderson Huerta Juan", 1, _u("LMXJV", 13, 0, 14, 0, "LC4")),
+    ("SCC0000", "Tutoría I", 0, "1YA", "Alexander Anderson Huerta Juan", 1, _u("M", 14, 0, 15, 0, "SC11")),
+    ("SI1850", "Fundamentos de Investigación", 4, "1YA", "Calzada Terrones Jeorgina", 1, _u("LMXJ", 17, 0, 18, 0, "SC12")),
+    ("SCC0000", "Tutoría I", 0, "1YE", "Valadez Acosta Rocio", 1, _u("L", 13, 0, 14, 0, "SC13")),
+    ("SI1802", "Taller de Administración", 4, "1YF", "Dominguez Reyes Gustavo Fausto", 1, _u("LMXJ", 13, 0, 14, 0, "SC4")),
+    ("SI1800", "Fundamentos de Programación", 5, "1YY", "Rodriguez Rivas Jose Gabriel", 1, _u("LMXJV", 13, 0, 14, 0, "LC3")),
+    ("SCC0000", "Tutoría I", 0, "1YY", "Lechuga Nevarez Mayela del Rayo", 1, _u("L", 14, 0, 15, 0, "SC7")),
+    ("SI1850", "Fundamentos de Investigación", 4, "1YY", "Hernandez Camargo Leonardo", 1, _u("LMXJ", 17, 0, 18, 0, "SC11")),
+    ("CO1001", "Cálculo Diferencial", 5, "1YY", "Mejia Hernandez Isaac", 1, _u("LMXJV", 12, 0, 13, 0, "SC12")),
+    ("CO1006", "Taller de Ética", 4, "1YY", "Garcia Curiel Fatima Janeth", 1, _u("LMXJ", 14, 0, 15, 0, "SC7")),
+    ("SI1801", "Matemáticas Discretas", 5, "1YY", "Rodriguez Angel Maria de los Angeles", 1, _u("LMXJV", 15, 0, 16, 0, "SC5")),
+    ("SI1802", "Taller de Administración", 4, "1YY", "Zamora Lerma Mario Gabriel", 1, _u("LMXJ", 16, 0, 17, 0, "SC5")),
+    ("SI1800", "Fundamentos de Programación", 5, "1YZ", "Gallegos de la Hoya Erasmo", 1, _u("LMXJV", 8, 0, 9, 0, "LC3")),
+    ("SCC0000", "Tutoría I", 0, "1YZ", "Valdez Hernandez Sergio", 1, _u("L", 9, 0, 10, 0, "LC1")),
+    ("SI1850", "Fundamentos de Investigación", 4, "1YZ", "Miranda Espinosa Edith Xochitl", 1, _u("LMXJ", 12, 0, 13, 0, "SC7")),
+    ("CO1001", "Cálculo Diferencial", 5, "1YZ", "Gonzalez Lazalde Luz Elena", 1, _u("LMXJV", 7, 0, 8, 0, "SC1")),
+    ("CO1006", "Taller de Ética", 4, "1YZ", "Pendiente", 1,
+     [("M", time(9, 0), time(10, 0), "SC7"), ("J", time(9, 0), time(10, 0), "SC14"), ("V", time(9, 0), time(10, 0), "SC8")]),
+    ("SI1801", "Matemáticas Discretas", 5, "1YZ", "Pendiente", 1, _u("LMXJV", 10, 0, 11, 0, "SC7")),
+    ("SI1802", "Taller de Administración", 4, "1YZ", "Alarcon Valle Irma Angelica", 1, _u("LMXJ", 11, 0, 12, 0, "SC7")),
+    ("SI1800", "Fundamentos de Programación", 5, "1Z", "Calzada Terrones Jeorgina", 1, _u("LMXJV", 16, 0, 17, 0, "LC3")),
+    ("SCC0000", "Tutoría I", 0, "1Z", "Ayala Partida Fernando", 1, _u("L", 17, 0, 18, 0, "SC1")),
+    ("SI1850", "Fundamentos de Investigación", 4, "1Z", "Ramirez Raul Antonio", 1, _u("LMXJV", 19, 0, 20, 0, "SC1")),
+    ("CO1001", "Cálculo Diferencial", 5, "1Z", "Garcia Rodriguez Jose Luis Cuauhtemoc", 1, _u("LMXJV", 14, 0, 15, 0, "SC1")),
+    ("CO1006", "Taller de Ética", 4, "1Z", "Pendiente", 1, _u("LMXJV", 18, 0, 19, 0, "SC1")),
+    ("SI1801", "Matemáticas Discretas", 5, "1Z", "Ayala Partida Fernando", 1, _u("LMXJV", 15, 0, 16, 0, "SC1")),
+    ("SI1802", "Taller de Administración", 4, "1Z", "Zamora Lerma Mario Gabriel", 1, _u("LMXJV", 17, 0, 18, 0, "SC1")),
+    ("SI1800", "Fundamentos de Programación", 5, "1Z1", "Pendiente", 1, _u("LMXJV", 16, 0, 17, 0, "LC4")),
+    ("SCC0000", "Tutoría I", 0, "1Z1", "Perez Esparza Edel", 1, _u("L", 17, 0, 18, 0, "SC2")),
+    ("SI1850", "Fundamentos de Investigación", 4, "1Z1", "Hernandez Camargo Leonardo", 1, _u("LMXJV", 19, 0, 20, 0, "SC2")),
+    ("SCC0000", "Tutoría I", 0, "1ZA", "Pendiente", 1, _u("J", 17, 0, 18, 0, "SC9")),
+    ("SI1800", "Fundamentos de Programación", 5, "1ZA", "Rosales Aguilera Susana Cristina", 1, _u("LMXJV", 14, 0, 15, 0, "LC3")),
+    ("SI1800", "Fundamentos de Programación", 5, "1ZY", "Alvarez Alvarado Gerardo Rafael", 1, _u("LMXJV", 8, 0, 9, 0, "LC22")),
+    ("SCC0000", "Tutoría I", 0, "1ZY", "Rincon Montero Rebeca Idaly", 1, _u("L", 9, 0, 10, 0, "LC22")),
+    ("SI1850", "Fundamentos de Investigación", 4, "1ZY", "Pendiente", 1, _u("LMXJ", 12, 0, 13, 0, "SC15")),
+    ("SI1800", "Fundamentos de Programación", 5, "1ZZ", "Lugo Morales Gabriel Arturo", 1, _u("LMXJV", 14, 0, 15, 0, "LC2")),
+    ("SCC0000", "Tutoría I", 0, "1ZZ", "Pendiente", 1, _u("V", 17, 0, 18, 0, "SC8")),
+    ("SI1850", "Fundamentos de Investigación", 4, "1ZZ", "Pendiente", 1, _u("MXJV", 17, 0, 18, 0, "SC10")),
+    ("CO1001", "Cálculo Diferencial", 5, "1ZZ", "Robles Zapata Jesus Roberto", 1, _u("LMXJV", 16, 0, 17, 0, "SC7")),
+    ("CO1006", "Taller de Ética", 4, "1ZZ", "Pendiente", 1, _u("LMXJ", 18, 0, 19, 0, "SC7")),
+    ("SI1801", "Matemáticas Discretas", 5, "1ZZ", "Torres Ibarra Ivonne", 1, _u("LMXJV", 15, 0, 16, 0, "LC4")),
+    ("SI1802", "Taller de Administración", 4, "1ZZ", "Zamora Lerma Mario Gabriel", 1, _u("LMXJ", 19, 0, 20, 0, "SC7")),
+    # Semestre 2
+    ("ACF0903", "Álgebra Lineal", 5, "2HY", "Garcia Rodriguez Jose Luis Cuauhtemoc", 2, _u("LMXJV", 12, 0, 13, 0, "O4")),
+    ("AEF1052", "Probabilidad y Estadística", 5, "2QY", "Pizarro Gurrola Ruben", 2, _u("LMXJV", 7, 0, 8, 0, "SC12")),
+    ("AED1286", "Programación Orientada a Objetos", 5, "2Y", "Saucedo Rosales Anibal Roberto", 2, _u("LMXJV", 7, 0, 8, 0, "LC23")),
+    ("SCC0001", "Tutoría II", 0, "2Y", "Gonzalez Bañales Dora Luz", 2, _u("L", 8, 0, 9, 0, "SC3")),
+    ("AEC1008", "Contabilidad Financiera", 4, "2Y", "Soria Hernandez Amelia", 2, _u("MJV", 8, 0, 9, 0, "SC3")),
+    ("AEC1058", "Química", 4, "2Y", "Alcazar Medina Felix Alonso", 2, _u("LMXJV", 12, 0, 13, 0, "SC3")),
+    ("AEF1052", "Probabilidad y Estadística", 5, "2Y", "Rodriguez Rivas Jose Gabriel", 2, _u("LMXJV", 9, 0, 10, 0, "LC23")),
+    ("ACF0902", "Cálculo Integral", 5, "2Y", "Solis Flores Hector", 2, _u("LMXJV", 11, 0, 12, 0, "SC3")),
+    ("ACF0903", "Álgebra Lineal", 5, "2Y", "Lerma Heredia Abraham", 2, _u("LMXJV", 10, 0, 11, 0, "SC3")),
+    ("AED1286", "Programación Orientada a Objetos", 5, "2Y1", "Hernandez Carrillo Irma Selene", 2, _u("LMXJV", 7, 0, 8, 0, "LC25")),
+    ("SCC0001", "Tutoría II", 0, "2YE", "Ortiz Parga Maria Luisa", 2, _u("X", 13, 0, 14, 0, "SC13")),
+    # Semestre 3
+    ("IF1909", "Estructura de Datos", 5, "3Y", "Alanis Gonzalez Felipe", 3, _u("LMXJV", 9, 0, 10, 0, "SC4")),
+    ("CO1004", "Cálculo Vectorial", 5, "3Y", "Moncisvalles Quiñones Efren", 3, _u("LMXJV", 11, 0, 12, 0, "SC4")),
+    ("SI1808", "Cultura Empresarial", 4, "3Y", "Avitia Rocha Brenda de la Luz", 3, _u("LMXJ", 12, 0, 13, 0, "SC4")),
+    ("IT8833", "Desarrollo Sustentable", 5, "3Y", "Ortiz Parga Maria Luisa", 3, _u("LMXJV", 8, 0, 9, 0, "SC4")),
+    ("SCC1013", "Investigación de Operaciones", 4, "3Y", "Butzmann Alvarez Laura Guadalupe", 3, _u("LMXJ", 7, 0, 8, 0, "SC4")),
+    ("SI1810", "Física General", 5, "3Y", "Garcia Rodriguez Jose Luis Cuauhtemoc", 3, _u("LMXJV", 10, 0, 11, 0, "SC4")),
+    ("IF1909", "Estructura de Datos", 5, "3Y1", "Pizarro Gurrola Ruben", 3, _u("LMXJV", 9, 0, 10, 0, "LC3")),
+    ("IF1909", "Estructura de Datos", 5, "3YY", "Hernandez Carrillo Irma Selene", 3, _u("LMXJV", 9, 0, 10, 0, "LC25")),
+    ("CO1004", "Cálculo Vectorial", 5, "3YY", "Pendiente", 3, _u("LMXJV", 11, 0, 12, 0, "SC10")),
+    ("IT8833", "Desarrollo Sustentable", 5, "3YY", "Lugo Morales Gabriel Arturo", 3, _u("LMXJV", 8, 0, 9, 0, "LC1")),
+    ("SCC1013", "Investigación de Operaciones", 4, "3YY", "Salazar Butzmann Sandra Gabriela", 3, _u("LMXJ", 7, 0, 8, 0, "SC5")),
+    ("SI1808", "Cultura Empresarial", 4, "3YY", "Pendiente", 3, _u("LMXJV", 12, 0, 13, 0, "SC5")),
+    ("SI1810", "Física General", 5, "3YY", "Pendiente", 3, _u("LMXJV", 10, 0, 11, 0, "SC5")),
+    ("IF1909", "Estructura de Datos", 5, "3Z", "Alanis Gonzalez Felipe", 3, _u("LMXJV", 15, 0, 16, 0, "SC3")),
+    ("IT8833", "Desarrollo Sustentable", 5, "3Z", "Ayala Partida Fernando", 3, _u("LMXJV", 18, 0, 19, 0, "SC3")),
+    ("SCC1013", "Investigación de Operaciones", 4, "3Z", "Pendiente", 3, _u("LMXJV", 19, 0, 20, 0, "SC3")),
+    ("SI1808", "Cultura Empresarial", 4, "3Z", "Leyva Alanis Martin Gustavo", 3, _u("LMXJ", 14, 0, 15, 0, "SC3")),
+    ("SI1810", "Física General", 5, "3Z", "Esparza Gurrola Omar Alejandro", 3, _u("LMXJV", 17, 0, 18, 0, "SC3")),
+    ("CO1004", "Cálculo Vectorial", 5, "3Z", "Velazquez Piedra Jose Demetrio", 3, _u("LMXJV", 16, 0, 17, 0, "SC3")),
+    ("IF1909", "Estructura de Datos", 5, "3Z1", "Calzada Terrones Jeorgina", 3, _u("LMXJV", 15, 0, 16, 0, "LC2")),
+    ("CO1004", "Cálculo Vectorial", 5, "3ZZ", "Esparza Gurrola Omar Alejandro", 3, _u("LMXJV", 16, 0, 17, 0, "SC4")),
+    ("IT8833", "Desarrollo Sustentable", 5, "3ZZ", "Calzada Terrones Jeorgina", 3, _u("LMXJV", 18, 0, 19, 0, "SC4")),
+    ("SCC1013", "Investigación de Operaciones", 4, "3ZZ", "Avila Orozco Martin", 3, _u("LMXJ", 19, 0, 20, 0, "SC4")),
+    ("SI1810", "Física General", 5, "3ZZ", "Pendiente", 3, _u("LMXJV", 17, 0, 18, 0, "SC4")),
+    ("IF1909", "Estructura de Datos", 5, "3ZZ", "Rosales Aguilera Susana Cristina", 3, _u("LMXJV", 15, 0, 16, 0, "LC3")),
+    ("SI1808", "Cultura Empresarial", 4, "3ZZ", "Pendiente", 3, _u("LMXJ", 14, 0, 15, 0, "SC4")),
+    # Semestre 4
+    ("AEF1031", "Fundamentos de Bases de Datos", 5, "4Y", "Gallegos de la Hoya Erasmo", 4, _u("LMXJV", 10, 0, 11, 0, "LC4")),
+    ("SCD1027", "Tópicos Avanzados de Programación", 5, "4Y", "Saucedo Rosales Anibal Roberto", 4, _u("LMXJV", 9, 0, 10, 0, "LC4")),
+    ("ACF0905", "Ecuaciones Diferenciales", 5, "4Y", "Villarreal Martinez Manuel", 4, _u("LMXJV", 11, 0, 12, 0, "SC6")),
+    ("SCC1017", "Métodos Numéricos", 4, "4Y", "Leyva Alanis Martin Gustavo", 4, _u("LMXJ", 7, 0, 8, 0, "SC6")),
+    ("SCD1018", "Principios Eléctricos y Apl. D", 5, "4Y", "Garcia Leal Juan Paulo Martin", 4,
+     [("M", time(8, 0), time(9, 0), "SC6"), ("X", time(8, 0), time(9, 0), "LEA"), ("J", time(8, 0), time(9, 0), "SC6")]),
+    ("SCD1022", "Simulación", 5, "4Y", "Leyva Alanis Martin Gustavo", 4, _u("LMXJV", 12, 0, 13, 0, "LC23")),
+    ("AEF1031", "Fundamentos de Bases de Datos", 5, "4Y1", "Alanis Gonzalez Felipe", 4,
+     [("L", time(10, 0), time(11, 0), "SC13"), ("M", time(10, 0), time(11, 0), "SC13"),
+      ("X", time(10, 0), time(11, 0), "SC13"), ("J", time(10, 0), time(11, 0), "SC23")]),
+    ("SCD1027", "Tópicos Avanzados de Programación", 5, "4Y1", "Alexander Anderson Huerta Juan", 4, _u("MXJV", 9, 0, 10, 0, "LC2")),
+    # Semestre 5
+    ("SCA1025", "Taller de Base de Datos", 4, "5Y", "Gallegos de la Hoya Erasmo", 5, _u("LMXJ", 12, 0, 13, 0, "LC3")),
+    ("SCC1010", "Graficación", 4, "5Y", "Galindo Vargas Luis Fernando", 5, _u("LMXJ", 11, 0, 12, 0, "LC22")),
+    ("AEC1034", "Fundamentos de Telecomunicación", 4, "5Y", "Ibarra Samaniego Cesar Arturo", 5,
+     [("M", time(8, 0), time(9, 0), "SC5"), ("J", time(8, 0), time(9, 0), "SC5"), ("V", time(9, 0), time(11, 0), "LEP")]),
+    ("AEC1061", "Sistemas Operativos I", 4, "5Y", "Leyva Alanis Martin Gustavo", 5, _u("LMXJ", 10, 0, 11, 0, "SC6")),
+    ("SCC1007", "Fundamentos de Ingeniería de Software", 4, "5Y", "Valdez Acosta Rocio", 5, _u("LMXJV", 9, 0, 10, 0, "SC5")),
+    ("SCD1003", "Arquitectura de Computadoras", 5, "5Y", "Peyro Valles Rosenda", 5,
+     [("L", time(7, 0), time(8, 0), "SC7"), ("X", time(7, 0), time(8, 0), "SC7"), ("J", time(7, 0), time(9, 0), "LED")]),
+    ("SCC1010", "Graficación", 4, "5Y1", "Pendiente", 5, _u("LMXJ", 11, 0, 12, 0, "LC25")),
+    ("SCA1025", "Taller de Base de Datos", 4, "5Y1", "Ramos Collins Salvador", 5, _u("LMXJ", 12, 0, 13, 0, "LC2")),
+    ("SCA1025", "Taller de Base de Datos", 4, "5YY", "Moorillon Soto Ana Louisa", 5, _u("LMXJ", 12, 0, 13, 0, "LC1")),
+    ("AEC1034", "Fundamentos de Telecomunicación", 4, "5YY", "Ibarra Samaniego Cesar Arturo", 5,
+     [("L", time(10, 0), time(11, 0), "LC1"), ("M", time(9, 0), time(11, 0), "LEP")]),
+    ("AEC1061", "Sistemas Operativos I", 4, "5YY", "Lujan Mesta Esteban", 5, _u("LMXJ", 8, 0, 9, 0, "LC2")),
+    ("SCC1007", "Fundamentos de Ingeniería de Software", 4, "5YY", "Miranda Espinosa Edith Xochitl", 5, _u("LMXJ", 7, 0, 8, 0, "SC9")),
+    ("SCD1003", "Arquitectura de Computadoras", 5, "5YY", "Velazquez Ventura Pedro Antonio", 5, _u("LMJV", 9, 0, 10, 0, "SC7")),
+    ("SCA1025", "Taller de Base de Datos", 4, "5Z", "Corral Arroyo Martin", 5, _u("LMXJ", 16, 0, 17, 0, "LC23")),
+    ("SCC1010", "Graficación", 4, "5Z", "Martinez Reyes Octavio Sergio", 5, _u("LMXJ", 15, 0, 16, 0, "LC23")),
+    ("AEC1034", "Fundamentos de Telecomunicación", 4, "5Z", "Ibarra Samaniego Cesar Arturo", 5, _u("LMXJ", 19, 0, 20, 0, "LEP")),
+    ("AEC1061", "Sistemas Operativos I", 4, "5Z", "Ramirez Raul Antonio", 5, _u("LMXJ", 17, 0, 18, 0, "SC5")),
+    ("SCC1007", "Fundamentos de Ingeniería de Software", 4, "5Z", "Ramirez Raul Antonio", 5, _u("LMXJ", 18, 0, 19, 0, "SC5")),
+    ("SCD1003", "Arquitectura de Computadoras", 5, "5Z", "Pendiente", 5, _u("LMXJ", 14, 0, 15, 0, "SC5")),
+    ("SCA1025", "Taller de Base de Datos", 4, "5Z1", "Pendiente", 5, _u("LMXJ", 16, 0, 17, 0, "LC22")),
+    ("SCC1010", "Graficación", 4, "5Z1", "Martinez Saavedra Rafael", 5, _u("LMXJ", 15, 0, 16, 0, "LC22")),
+    # Semestre 6
+    ("SCD1021", "Redes de Computadoras", 5, "6Y", "Corral Arroyo Martin", 6, _u("LMXJV", 11, 0, 12, 0, "SC8")),
+    ("SCA1026", "Taller de Sistemas Operativos", 4, "6Y", "Porras Sandoval Maria Isabel", 6, _u("LMXJV", 9, 0, 10, 0, "SC8")),
+    ("SCB1001", "Admón. de Base de Datos", 5, "6Y", "Alvarez Alvarado Gerardo Rafael", 6, _u("LMXJV", 7, 0, 8, 0, "SC8")),
+    ("SCC1014", "Lenguajes de Interfaz", 4, "6Y", "Solis Gallegos Jose Lauro", 6, _u("LMXJV", 12, 0, 13, 0, "SC8")),
+    ("SCD1011", "Ingeniería de Software", 5, "6Y", "Dominguez Flores Araceli Soledad", 6, _u("LMXJV", 10, 0, 11, 0, "SC8")),
+    ("SCD1015", "Lenguajes y Autómatas I", 5, "6Y", "Gutierrez Reyes Jose Antonio", 6, _u("LMXJV", 8, 0, 9, 0, "SC8")),
+    ("SCD1021", "Redes de Computadoras", 5, "6Y1", "Ayala Partida Fernando", 6, _u("LMXJV", 11, 0, 12, 0, "SC8")),
+    # Semestre 7
+    ("APB-2501", "Introducción al Diseño Digital", 5, "7AY", "Galindo Vargas Luis Fernando", 7, _u("LMXJ", 13, 0, 14, 0, "SC9")),
+    ("APF-2502", "Diseño Centrado en el Usuario", 5, "7AY", "Gonzalez Bañales Dora Luz", 7, _u("LMXJ", 14, 0, 15, 0, "SC9")),
+    ("IAD-2501", "Metodologías Ágiles Orientadas a la Transformación", 5, "7IA", "Solano Rosales Gustavo Fabian", 7, _u("LMXJ", 13, 0, 14, 0, "SC12")),
+    ("IAD-2502", "Analítica de Datos", 5, "7IA", "Rodriguez Zuñiga Marco Antonio", 7, _u("LMXJ", 14, 0, 15, 0, "SC12")),
+    ("SEF-2501", "Fundamentos de Seguridad Informática", 5, "7SI", "Valdez Hernandez Sergio", 7, _u("LMXJ", 13, 0, 14, 0, "SC14")),
+    ("SEF-2502", "Seguridad de Redes", 5, "7SI", "Rincon Montero Rebeca Idaly", 7, _u("LMXJ", 14, 0, 15, 0, "SC14")),
+    ("SCD1004", "Conmutación y Enrutamiento", 5, "7Y", "Valdez Hernandez Sergio", 7, _u("LMXJV", 8, 0, 9, 0, "SC9")),
+    ("ACA0909", "Taller de Investigación I", 4, "7Y", "Pendiente", 7, _u("LM", 12, 0, 13, 0, "SC9")),
+    ("SCC1023", "Sistemas Programables", 5, "7Y", "Solis Gallegos Jose Lauro", 7, _u("LMXJV", 11, 0, 12, 0, "SC9")),
+    ("SCD1016", "Lenguajes y Autómatas II", 5, "7Y", "Gutierrez Reyes Jose Antonio", 7, _u("LMXJV", 9, 0, 10, 0, "SC9")),
+    ("SCG1009", "Gestión de Proyectos de Software", 6, "7Y", "Valenzuela Martinez Carlos", 7, _u("LMXJV", 10, 0, 11, 0, "SC9")),
+    ("SCD1004", "Conmutación y Enrutamiento", 5, "7Y1", "Rodriguez Zuñiga Marco Antonio", 7, _u("LMXJ", 8, 0, 9, 0, "LCRBD")),
+    ("ACA0909", "Taller de Investigación I", 4, "7Y1", "Porras Sandoval Maria Isabel", 7, _u("LMXJ", 12, 0, 13, 0, "SC6")),
+    ("SCD1004", "Conmutación y Enrutamiento", 5, "7YA", "Pendiente", 7, _u("LMXJ", 12, 0, 13, 0, "LCRBD")),
+    ("ACA0909", "Taller de Investigación I", 4, "7YA", "Avitia Rocha Brenda de la Luz", 7, _u("LMXJ", 8, 0, 9, 0, "SC7")),
+    ("SCD1004", "Conmutación y Enrutamiento", 5, "7YY", "Corral Arroyo Martin", 7, _u("LMXJ", 12, 0, 13, 0, "SC10")),
+    ("ACA0909", "Taller de Investigación I", 4, "7YY", "Lechuga Nevarez Mayela del Rayo", 7, _u("LMXJ", 8, 0, 9, 0, "SC10")),
+    ("SCC1023", "Sistemas Programables", 5, "7YY", "Solis Gallegos Jose Lauro", 7, _u("LMXJV", 10, 0, 11, 0, "SC10")),
+    ("SCD1016", "Lenguajes y Autómatas II", 5, "7YY", "Valenzuela Silerio Alejandro", 7, _u("LMXJV", 11, 0, 12, 0, "LC4")),
+    ("SCG1009", "Gestión de Proyectos de Software", 6, "7YY", "Dominguez Flores Araceli Soledad", 7, _u("LMXJV", 7, 0, 8, 0, "SC10")),
+    ("SCD1004", "Conmutación y Enrutamiento", 5, "7Z", "Valdez Gutierrez Jose Ramon", 7, _u("LMXJV", 16, 0, 17, 0, "LC2")),
+    ("ACA0909", "Taller de Investigación I", 4, "7Z", "Pendiente", 7, _u("LMXJ", 17, 0, 18, 0, "SC6")),
+    ("SCC1023", "Sistemas Programables", 5, "7Z", "Pendiente", 7, _u("LMXJ", 15, 0, 16, 0, "SC6")),
+    ("SCD1016", "Lenguajes y Autómatas II", 5, "7Z", "Torres Ibarra Ivonne", 7, _u("LMXJV", 19, 0, 20, 0, "LC4")),
+    ("SCG1009", "Gestión de Proyectos de Software", 6, "7Z", "Torres Ibarra Ivonne", 7, _u("LMXJ", 18, 0, 19, 0, "LC4")),
+    ("ACA0909", "Taller de Investigación I", 4, "7Z1", "Pendiente", 7, _u("V", 17, 0, 18, 0, "SC7")),
+    ("SCD1004", "Conmutación y Enrutamiento", 5, "7Z1", "Pendiente", 7, _u("LMXJV", 16, 0, 17, 0, "LCRBD")),
+    # Semestre 8
+    ("APF-2503", "Aplicaciones Interactivas 2D", 5, "8AY", "Valdez Hernandez Sergio", 8, _u("LMXJV", 14, 0, 15, 0, "SC10")),
+    ("APF-2504", "Aplicaciones Interactivas 3D", 5, "8AY", "Rincon Montero Rebeca Idaly", 8, _u("LMXJV", 13, 0, 14, 0, "SC10")),
+    ("IAF-2503", "Diseño Centrado en el Usuario", 5, "8IA", "Gonzalez Bañales Dora Luz", 8, _u("LMXJV", 13, 0, 14, 0, "SC2")),
+    ("IAF-2504", "Machine y Deep Learning", 5, "8IA", "Rodriguez Rivas Jose Gabriel", 8, _u("LMXJV", 14, 0, 15, 0, "LC4")),
+    ("SEF-2503", "Hacking Ético", 5, "8SI", "Pendiente", 8, _u("LMXJV", 13, 0, 14, 0, "SC8")),
+    ("SEF-2504", "Cómputo Forense", 5, "8SI", "Pendiente", 8, _u("LMXJV", 14, 0, 15, 0, "SC8")),
+    ("ISI0061", "Servicio Social", 10, "8Y", "Pendiente", 8, _u("S", 7, 0, 17, 0, "PRUEBA")),
+    ("SCA1002", "Administración de Redes", 4, "8Y", "Corral Arroyo Martin", 8, _u("LMXJV", 9, 0, 10, 0, "SC11")),
+    ("ACA0910", "Taller de Investigación II", 4, "8Y", "Lechuga Nevarez Mayela del Rayo", 8, _u("LMXJV", 11, 0, 12, 0, "SC11")),
+    ("AEB1055", "Programación Web", 5, "8Y", "Pizarro Gurrola Ruben", 8, _u("LMXJV", 10, 0, 11, 0, "SC11")),
+    ("SCC1019", "Programación Lógica y Funcional", 4, "8Y", "Porras Sandoval Maria Isabel", 8, _u("LMXJV", 8, 0, 9, 0, "SC11")),
+    ("SCA1002", "Administración de Redes", 4, "8Y1", "Valdez Gutierrez Jose Ramon", 8, _u("LMXJV", 9, 0, 10, 0, "LCRBD")),
+    ("ACA0910", "Taller de Investigación II", 4, "8Y1", "Avitia Rocha Brenda de la Luz", 8, _u("LMXJV", 11, 0, 12, 0, "SC12")),
+    # Semestre 9
+    ("APB-2505", "Tópicos Selectos de Desarrollo de Aplicaciones", 5, "9AY", "Valenzuela Silerio Alejandro", 9, _u("LMXJV", 13, 0, 14, 0, "SC11")),
+    ("IAF-2505", "Consultoría en Gestión de Transformación Digital", 5, "9IA", "Lechuga Nevarez Mayela del Rayo", 9, _u("LMXJV", 13, 0, 14, 0, "SC1")),
+    ("SEF-2505", "Tópicos Selectos de Seg Inf", 5, "9SI", "Rodriguez Zuñiga Marco Antonio", 9, _u("LMXJV", 13, 0, 14, 0, "SC3")),
+    ("ISI0062", "Residencia Profesional", 10, "9Y", "Pendiente", 9, _u("S", 7, 0, 17, 0, "PRUEBA")),
+    ("SCC1012", "Inteligencia Artificial", 5, "9Y", "Solano Rosales Gustavo Fabian", 9, _u("LMXJV", 14, 0, 15, 0, "SC6")),
+    ("SCC1012", "Inteligencia Artificial", 5, "9YY", "Ramos Collins Salvador", 9, _u("LMXJ", 14, 0, 15, 0, "SC13")),
+    ("SCC1012", "Inteligencia Artificial", 5, "9Z", "Torres Ibarra Ivonne", 9, _u("LMXJ", 16, 0, 17, 0, "LC1")),
+]
+
+
 def _obtener_o_crear_materia(db: Session, cache: dict[str, Materia], clave: str, nombre: str, creditos: int) -> Materia:
     if clave in cache:
         return cache[clave]
@@ -258,6 +462,22 @@ def seed() -> None:
                 )
             )
 
+        # Catálogo institucional "Grupos Cargados" (periodo Agosto-Diciembre/2026,
+        # distinto del periodo actual del alumno) — no se crean Calificacion,
+        # son grupos institucionales, no la inscripción del alumno.
+        for clave, nombre, creditos, clave_grupo, docente, semestre, sesiones in GRUPOS_CARGADOS:
+            materia = _obtener_o_crear_materia(db, materias, clave, nombre, creditos)
+
+            grupo = Grupo(
+                materia_id=materia.id, clave_grupo=clave_grupo, docente_nombre=docente,
+                periodo=settings.PERIODO_GRUPOS_CARGADOS, semestre=semestre,
+            )
+            db.add(grupo)
+            db.flush()
+
+            for dia, hora_inicio, hora_fin, aula in sesiones:
+                db.add(HorarioSesion(grupo_id=grupo.id, dia_semana=DIAS[dia], hora_inicio=hora_inicio, hora_fin=hora_fin, aula=aula))
+
         # Estatus de reinscripción real: autorizado, sin adeudos, sin hora
         # asignada todavía ("--" tal como lo muestra la pantalla real).
         db.add(
@@ -335,7 +555,8 @@ def seed() -> None:
         print(
             f"Datos semilla creados: 1 alumno, {len(materias)} materias, "
             f"{len(MATERIAS_ACTUALES)} grupos, {len(MATERIAS_ACTUALES) + len(MATERIAS_HISTORICAS)} "
-            f"registros de calificaciones/kardex, {len(AVANCE_RETICULA)} celdas de avance reticular."
+            f"registros de calificaciones/kardex, {len(AVANCE_RETICULA)} celdas de avance reticular, "
+            f"{len(GRUPOS_CARGADOS)} grupos cargados institucionales."
         )
     finally:
         db.close()

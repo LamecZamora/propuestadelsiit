@@ -9,6 +9,7 @@ class Settings(BaseSettings):
     JWT_ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60
     CURRENT_PERIODO: str = "Enero – Junio 2026"
+    PERIODO_GRUPOS_CARGADOS: str = "Agosto – Diciembre 2026"
     CORS_ORIGINS: list[str] = ["http://localhost:5173"]
 
 

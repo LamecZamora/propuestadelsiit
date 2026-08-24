@@ -21,15 +21,19 @@ def test_seed_crea_los_datos_esperados(monkeypatch):
 
     session = TestSession()
     try:
+        total_grupos = len(seed_module.MATERIAS_ACTUALES) + len(seed_module.GRUPOS_CARGADOS)
+        total_sesiones = sum(len(s[6]) for s in seed_module.MATERIAS_ACTUALES) + sum(len(g[6]) for g in seed_module.GRUPOS_CARGADOS)
+
         assert session.query(models.Alumno).count() == 1
-        assert session.query(models.Materia).count() == 56
-        assert session.query(models.Grupo).count() == 6
-        assert session.query(models.HorarioSesion).count() == 24
+        assert session.query(models.Materia).count() == 66
+        assert session.query(models.Grupo).count() == total_grupos
+        assert session.query(models.HorarioSesion).count() == total_sesiones
         assert session.query(models.Calificacion).count() == 53
         assert session.query(models.Calificacion).filter_by(estado="cursando").count() == 6
         assert session.query(models.Calificacion).filter_by(estado="acreditada").count() == 42
         assert session.query(models.Calificacion).filter_by(estado="no_acreditada").count() == 5
         assert session.query(models.AvanceMateria).count() == 55
+        assert session.query(models.Grupo).filter_by(periodo=seed_module.settings.PERIODO_GRUPOS_CARGADOS).count() == len(seed_module.GRUPOS_CARGADOS)
     finally:
         session.close()
 

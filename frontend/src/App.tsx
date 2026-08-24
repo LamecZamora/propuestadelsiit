@@ -14,6 +14,7 @@ import DashboardPage from "@/pages/DashboardPage";
 import DatosEscolaresPage from "@/pages/DatosEscolaresPage";
 import ExtraescolarPage from "@/pages/ExtraescolarPage";
 import FichaPagoPage from "@/pages/FichaPagoPage";
+import GruposCargadosPage from "@/pages/GruposCargadosPage";
 import HorarioPage from "@/pages/HorarioPage";
 import KardexPage from "@/pages/KardexPage";
 import LoginPage from "@/pages/LoginPage";
@@ -34,7 +35,7 @@ const queryClient = new QueryClient({
 // del sidebar/buscador cae automáticamente en ComingSoonPage.
 const RUTAS_CONSTRUIDAS = new Set([
   "/dashboard", "/horario", "/calificaciones", "/kardex", "/avance",
-  "/curp", "/inscripcion", "/residencias", "/ficha-pago", "/extraescolar", "/datos",
+  "/curp", "/inscripcion", "/residencias", "/ficha-pago", "/extraescolar", "/datos", "/grupos",
 ]);
 const MODULOS_FUTUROS = NAV_ITEMS.map((item) => item.url).filter((url) => !RUTAS_CONSTRUIDAS.has(url));
 
@@ -59,6 +60,7 @@ export default function App() {
                   <Route path="/ficha-pago" element={<FichaPagoPage />} />
                   <Route path="/extraescolar" element={<ExtraescolarPage />} />
                   <Route path="/datos" element={<DatosEscolaresPage />} />
+                  <Route path="/grupos" element={<GruposCargadosPage />} />
                   {MODULOS_FUTUROS.map((path) => (
                     <Route key={path} path={path} element={<ComingSoonPage />} />
                   ))}
